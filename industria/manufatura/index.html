@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufatura - Indústria - O Valor Capital</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FFD700'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial' font-size='14' font-weight='bold' fill='%23000'%3EVC%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border: #e5e5e5;
+            --accent: #FFD700;
+            
+            /* COR ESPECÍFICA DE ECONOMIA */
+            --category-color: #334155;
+            --category-light: #e2e8f0;
+            --category-dark: #0f172a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        .header {
+            background: #1a1a1a;
+            color: white;
+            padding: 20px 0;
+            border-bottom: 4px solid var(--category-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: var(--category-color);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--category-dark);
+        }
+
+        /* HERO DA CATEGORIA */
+        .category-hero {
+            background: linear-gradient(135deg, var(--category-color), var(--category-dark));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .category-title {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .category-description {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            padding: 15px 0;
+            background: var(--category-light);
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--category-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* SUBCATEGORIAS */
+        .subcategories {
+            padding: 20px 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .subcategories-list {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .subcat-link {
+            padding: 8px 16px;
+            background: var(--category-light);
+            color: var(--category-color);
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .subcat-link:hover {
+            background: var(--category-color);
+            color: white;
+        }
+
+        /* CONTEÚDO */
+        .content {
+            padding: 40px 0;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+
+        .main-content h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--category-color);
+        }
+
+        /* GRID DE ARTIGOS */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 180px;
+            background: var(--category-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--category-color);
+            font-size: 60px;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--category-light);
+            color: var(--category-color);
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            font-size: 18px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .article-excerpt {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .widget-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--category-color);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .category-title { font-size: 32px; }
+            .content-wrapper { grid-template-columns: 1fr; }
+            .articles-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">VC</div>
+                    <span style="font-size: 20px; font-weight: 700;">O Valor Capital</span>
+                </a>
+                <a href="/" class="back-btn">← Voltar ao Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO DA CATEGORIA -->
+    <section class="category-hero">
+        <div class="container">
+            <h1 class="category-title">Manufatura</h1>
+            <p class="category-description">Indústria • Manufatura — recortes, análises e atualizações.</p>
+        </div>
+    </section>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="/">Início</a> → <a href="/industria/">Indústria</a> → <strong>Manufatura</strong>
+        </div>
+    </div>
+
+    <!-- SUBCATEGORIAS -->
+    <section class="subcategories">
+        <div class="container">
+            <div class="subcategories-list">
+                <a href="/industria/infraestrutura/" class="subcat-link">Infraestrutura</a>
+                <a href="/industria/construcao/" class="subcat-link">Construção</a>
+                <a href="/industria/manufatura/" class="subcat-link">Manufatura</a>
+                <a href="/industria/logistica/" class="subcat-link">Logística</a>
+                <a href="/industria/defesa/" class="subcat-link">Defesa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="main-content">
+                    <h2>📰 Últimas Notícias: Manufatura</h2>
+                    
+                    <div class="articles-grid">
+                        <!-- Artigo 1 -->
+                        <article class="article-card">
+                            <div class="article-image">📊</div>
+                            <div class="article-content">
+                                <span class="article-tag">POLÍTICA ECONÔMICA</span>
+                                <h3 class="article-title">Relação Lula-Trump e o Risco Brasil: Tensão comercial pode elevar custo de capital</h3>
+                                <p class="article-excerpt">Analistas avaliam que tensões diplomáticas e comerciais entre Brasil e EUA podem impactar negativamente...</p>
+                                <div class="article-meta">
+                                    <span>Há 2 horas</span>
+                                    <span>5 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Artigo 2 -->
+                        <article class="article-card">
+                            <div class="article-image">📈</div>
+                            <div class="article-content">
+                                <span class="article-tag">PIB E CRESCIMENTO</span>
+                                <h3 class="article-title">PIB do Brasil deve crescer 3,5% em 2025, projeta Banco Central</h3>
+                                <p class="article-excerpt">Relatório Focus aponta melhora nas expectativas de crescimento econômico para o próximo ano...</p>
+                                <div class="article-meta">
+                                    <span>Há 4 horas</span>
+                                    <span>3 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Artigo 3 -->
+                        <article class="article-card">
+                            <div class="article-image">💰</div>
+                            <div class="article-content">
+                                <span class="article-tag">INFLAÇÃO E JUROS</span>
+                                <h3 class="article-title">Selic deve permanecer em 11,75% até meados de 2025</h3>
+                                <p class="article-excerpt">Comitê de Política Monetária sinaliza manutenção da taxa básica de juros em patamar elevado...</p>
+                                <div class="article-meta">
+                                    <span>Há 6 horas</span>
+                                    <span>4 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Artigo 4 -->
+                        <article class="article-card">
+                            <div class="article-image">💵</div>
+                            <div class="article-content">
+                                <span class="article-tag">CÂMBIO</span>
+                                <h3 class="article-title">Dólar fecha em alta e se aproxima de R$ 6,00</h3>
+                                <p class="article-excerpt">Moeda americana avança com incertezas fiscais e tensões geopolíticas globais...</p>
+                                <div class="article-meta">
+                                    <span>Há 8 horas</span>
+                                    <span>2 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Artigo 5 -->
+                        <article class="article-card">
+                            <div class="article-image">🏛️</div>
+                            <div class="article-content">
+                                <span class="article-tag">FISCAL E TRIBUTAÇÃO</span>
+                                <h3 class="article-title">Reforma tributária: Senado aprova texto-base em primeiro turno</h3>
+                                <p class="article-excerpt">Proposta de simplificação do sistema tributário brasileiro avança no Congresso Nacional...</p>
+                                <div class="article-meta">
+                                    <span>Há 10 horas</span>
+                                    <span>6 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Artigo 6 -->
+                        <article class="article-card">
+                            <div class="article-image">📋</div>
+                            <div class="article-content">
+                                <span class="article-tag">IMPOSTO DE RENDA</span>
+                                <h3 class="article-title">Isenção do IR para quem ganha até R$ 5 mil pode custar R$ 45 bi</h3>
+                                <p class="article-excerpt">Estudo da Receita Federal aponta impacto fiscal de proposta do governo para ampliar faixa de isenção...</p>
+                                <div class="article-meta">
+                                    <span>Ontem</span>
+                                    <span>5 min de leitura</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <!-- Widget Mais Lidas -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">📈 Mais Lidas em Economia</h3>
+                        <ol style="padding-left: 20px; font-size: 14px;">
+                            <li style="margin-bottom: 12px;">Relação Lula-Trump e o Risco Brasil</li>
+                            <li style="margin-bottom: 12px;">PIB deve crescer 3,5% em 2025</li>
+                            <li style="margin-bottom: 12px;">Dólar se aproxima de R$ 6,00</li>
+                            <li style="margin-bottom: 12px;">Reforma tributária avança no Senado</li>
+                            <li style="margin-bottom: 12px;">Selic deve permanecer em 11,75%</li>
+                        </ol>
+                    </div>
+
+                    <!-- Widget Tags -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">🏷️ Tags Populares</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">Selic</span>
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">PIB</span>
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">Inflação</span>
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">Dólar</span>
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">Reforma</span>
+                            <span style="padding: 5px 12px; background: var(--category-light); color: var(--category-color); border-radius: 15px; font-size: 12px;">Fiscal</span>
+                        </div>
+                    </div>
+
+                    <!-- Widget Newsletter -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">📧 Boletim Econômico</h3>
+                        <p style="font-size: 14px; margin-bottom: 15px;">Receba análises econômicas diárias</p>
+                        <input type="email" placeholder="Seu e-mail" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px;">
+                        <button style="width: 100%; padding: 10px; background: var(--category-color); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">ASSINAR</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="background: #0a0a0a; color: white; padding: 40px 0; margin-top: 60px;">
+        <div class="container">
+            <div style="text-align: center;">
+                <p>© 2025 O Valor Capital - Seção de Economia</p>
+                <p style="font-size: 14px; margin-top: 10px; color: #666;">Portal de notícias financeiras e econômicas</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

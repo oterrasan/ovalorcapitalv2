@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login Admin • O Valor Capital</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#0f172a; --border:rgba(148,163,184,.18);
+      --text:#e5e7eb; --muted:#94a3b8; --accent:#0b3b60;
+      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    }
+    .login-box{
+      width:100%; max-width:420px; padding:32px;
+      background:rgba(15,23,42,.85); border:1px solid var(--border);
+      border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,.4);
+    }
+    h1{font-size:24px; margin-bottom:8px; text-align:center}
+    .subtitle{color:var(--muted); font-size:14px; text-align:center; margin-bottom:28px}
+    label{display:block; font-size:13px; color:var(--muted); margin:16px 0 6px}
+    input{
+      width:100%; padding:12px 14px; border-radius:10px;
+      border:1px solid var(--border); background:rgba(2,6,23,.6);
+      color:var(--text); outline:none; font-size:15px;
+    }
+    input:focus{border-color:rgba(11,59,96,.8)}
+    .btn{
+      width:100%; margin-top:24px; padding:13px;
+      background:rgba(11,59,96,.35); border:1px solid rgba(11,59,96,.8);
+      color:var(--text); border-radius:10px; cursor:pointer;
+      font-size:15px; font-weight:600; transition:.2s;
+    }
+    .btn:hover{background:rgba(11,59,96,.5)}
+    .error{
+      color:var(--bad); font-size:13px; margin-top:12px;
+      padding:10px; background:rgba(239,68,68,.1);
+      border:1px solid rgba(239,68,68,.3); border-radius:8px;
+      display:none;
+    }
+    .logo{text-align:center; margin-bottom:24px; font-size:28px; font-weight:700; color:#0b3b60}
+  </style>
+</head>
+<body>
+<div class="login-box">
+  <div class="logo">O VALOR CAPITAL</div>
+  <h1>Área Administrativa</h1>
+  <div class="subtitle">Acesso restrito • Sistema de gerenciamento</div>
+  
+  <form id="loginForm">
+    <label>Usuário</label>
+    <input type="text" id="username" placeholder="Digite o usuário" autocomplete="username" required />
+    
+    <label>Senha</label>
+    <input type="password" id="password" placeholder="Digite a senha" autocomplete="current-password" required />
+    
+    <button type="submit" class="btn">Acessar Admin</button>
+    
+    <div class="error" id="error">Usuário ou senha incorretos</div>
+  </form>
+</div>
+
+<script>
+const CREDENTIALS = {
+  username: 'Admindoportalovc',
+  password: 'Ovc-25.01.2026!'
+};
+
+const SESSION_KEY = 'OVC_ADMIN_SESSION';
+const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 horas
+
+// Verifica se já está logado
+function checkSession() {
+  try {
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+    if (session && session.expires > Date.now()) {
+      window.location.href = '/admin/dashboard.html';
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+// Ao carregar a página
+if (!checkSession()) {
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('error');
+    
+    // Validação
+    if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+      // Login correto
+      const session = {
+        user: username,
+        loginTime: Date.now(),
+        expires: Date.now() + SESSION_DURATION
+      };
+      
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      window.location.href = '/admin/dashboard.html';
+    } else {
+      // Login incorreto
+      errorDiv.style.display = 'block';
+      document.getElementById('password').value = '';
+      
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 3000);
+    }
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+[
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "CanalGov (EBC)",
+    "type": "channel",
+    "id": "UCjaWLFTNqLkq3ZY2BJ4NYRg"
+  },
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "Câmara dos Deputados (ao vivo)",
+    "type": "channel",
+    "id": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
+  },
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "TV Senado",
+    "type": "channel",
+    "id": "UCLgti7NuK0RuW9wty-fxPjQ"
+  },
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "STF (Supremo Tribunal Federal)",
+    "type": "channel",
+    "id": "UCsW4QSB1USsu9ouuFUWe4Iw"
+  },
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "Banco Central do Brasil",
+    "type": "channel",
+    "id": "UC_Y9Mf8o6gGAAw8eBrn3SOw"
+  },
+  {
+    "section": "Brasil • Governo e Instituições",
+    "name": "Ministério da Fazenda",
+    "type": "channel",
+    "id": "UC_TapH8f4HLLAwPBaXy-Gag"
+  },
+  {
+    "section": "Mundo • Instituições",
+    "name": "United Nations TV (UNTV)",
+    "type": "video",
+    "id": "vYRfQo6JMxc"
+  },
+  {
+    "section": "Mundo • Instituições",
+    "name": "European Parliament",
+    "type": "channel",
+    "id": "UCvU4p_w08osQsrNi_I4ZtDA"
+  },
+  {
+    "section": "Mundo • Instituições",
+    "name": "UK Parliament",
+    "type": "channel",
+    "id": "UCMasyWuE1P2AaEKw_FkGq9g"
+  }
+]

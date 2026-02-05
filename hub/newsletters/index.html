@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletters - Hub - O Valor Capital</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FFD700'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial' font-size='14' font-weight='bold' fill='%23000'%3EVC%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --accent: #FFD700;
+            --accent-dark: #d4af37;
+            --border: #e5e5e5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER SIMPLES */
+        .header {
+            background: #1a1a1a;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* SEÇÕES */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        /* CARDS DE SOLUÇÃO */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .solution-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        .solution-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .solution-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* PROCESSO */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* PERFIS */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .profile-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .profile-card:hover {
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .profile-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #cccccc;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--accent);
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero-stats { flex-direction: column; gap: 30px; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">VC</div>
+                    <span style="font-size: 20px; font-weight: 700;">O Valor Capital</span>
+                </a>
+                <a href="/" class="back-btn">← Voltar ao Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hub de Assessoria Financeira Premium</h1>
+                <p class="hero-subtitle">Entenda como funciona a proteção patrimonial completa para profissionais de alta renda</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Anos de Experiência</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">R$ 300M+</div>
+                        <div class="stat-label">Patrimônio Protegido</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12.000+</div>
+                        <div class="stat-label">Clientes Atendidos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfação</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÕES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Como Funciona a Proteção Patrimonial</h2>
+            <p class="section-subtitle">Entenda os pilares fundamentais da arquitetura financeira moderna</p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🛡️</div>
+                    <h3 class="solution-title">Proteção</h3>
+                    <p class="solution-text">Blindagem patrimonial através de seguros de vida e estruturas jurídicas que garantem a segurança do patrimônio familiar</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🔄</div>
+                    <h3 class="solution-title">Continuidade</h3>
+                    <p class="solution-text">Planejamento sucessório estruturado para garantir a perpetuidade do patrimônio através das gerações</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3 class="solution-title">Crescimento</h3>
+                    <p class="solution-text">Estratégias de investimento personalizadas para multiplicação patrimonial com segurança e eficiência fiscal</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🌍</div>
+                    <h3 class="solution-title">Expansão</h3>
+                    <p class="solution-text">Diversificação internacional e acesso a oportunidades globais de investimento e proteção</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESSO -->
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">O Processo de Arquitetura Financeira</h2>
+            <p class="section-subtitle">Metodologia comprovada em 4 etapas</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Diagnóstico</h3>
+                    <p>Análise profunda da situação patrimonial, fiscal e sucessória atual</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Planejamento</h3>
+                    <p>Desenvolvimento de estratégia personalizada com base nos objetivos</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Implementação</h3>
+                    <p>Execução das estruturas de proteção e otimização patrimonial</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Acompanhamento</h3>
+                    <p>Monitoramento contínuo e ajustes conforme mudanças na legislação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERFIS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Perfis Atendidos</h2>
+            <p class="section-subtitle">Soluções especializadas para cada profissão</p>
+            
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <div class="profile-icon">👨‍⚕️</div>
+                    <h4>Médicos</h4>
+                    <p>Proteção contra riscos profissionais</p>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">👔</div>
+                    <h4>Executivos</h4>
+                    <p>Stock options e benefícios fiscais</p>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">🏢</div>
+                    <h4>Empresários</h4>
+                    <p>Sucessão empresarial e holding</p>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">⚽</div>
+                    <h4>Atletas</h4>
+                    <p>Gestão de carreira e aposentadoria</p>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">⚖️</div>
+                    <h4>Advogados</h4>
+                    <p>Sociedades e planejamento tributário</p>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">🦷</div>
+                    <h4>Dentistas</h4>
+                    <p>Clínicas e proteção patrimonial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Por Que Este Modelo Funciona</h2>
+            <p class="section-subtitle">Diferenciais comprovados no mercado</p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🏆</div>
+                    <h3 class="solution-title">Experiência Comprovada</h3>
+                    <p class="solution-text">Mais de duas décadas protegendo patrimônios de famílias brasileiras</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🤝</div>
+                    <h3 class="solution-title">Parcerias Estratégicas</h3>
+                    <p class="solution-text">Acesso às melhores instituições financeiras e seguradoras do mercado</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">📊</div>
+                    <h3 class="solution-title">Metodologia Própria</h3>
+                    <p class="solution-text">Sistema exclusivo de análise e estruturação patrimonial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Pronto para Proteger seu Patrimônio?</h2>
+            <p class="cta-text">Agende uma análise gratuita e descubra como otimizar sua arquitetura financeira</p>
+            <a href="https://lionscorretora.com.br/contato" class="cta-button" target="_blank">Solicitar Análise Gratuita</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #0a0a0a; color: white; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <p style="margin-bottom: 10px;">© 2025 O Valor Capital - Hub de Assessoria</p>
+            <p style="font-size: 14px; color: #666;">Este é um conteúdo editorial independente do portal O Valor Capital</p>
+        </div>
+    </footer>
+</body>
+</html>

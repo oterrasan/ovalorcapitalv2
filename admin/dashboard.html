@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin • O Valor Capital</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#0f172a; --border:rgba(148,163,184,.18);
+      --text:#e5e7eb; --muted:#94a3b8; --accent:#0b3b60;
+      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px}
+    header{position:sticky;top:0;background:linear-gradient(180deg, rgba(11,59,96,.35), rgba(11,15,20,.98));border-bottom:1px solid var(--border);backdrop-filter: blur(8px);z-index:5}
+    .top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand b{letter-spacing:.4px}
+    .pill{border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:var(--muted);background:rgba(15,23,42,.65)}
+    .btn{border:1px solid var(--border);background:rgba(15,23,42,.7);padding:9px 12px;border-radius:10px;color:var(--text);cursor:pointer}
+    .btn:hover{border-color:rgba(148,163,184,.35)}
+    .btn.primary{border-color:rgba(11,59,96,.8);background:rgba(11,59,96,.25)}
+    .grid{display:grid;grid-template-columns: 1.1fr .9fr; gap:16px; align-items:start}
+    .card{background:rgba(15,23,42,.75);border:1px solid var(--border);border-radius:14px;padding:14px}
+    h1{font-size:22px;margin:10px 0 4px}
+    .muted{color:var(--muted)}
+    label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+    input, select, textarea{
+      width:100%; padding:10px 10px; border-radius:10px; border:1px solid var(--border);
+      background:rgba(2,6,23,.55); color:var(--text); outline:none;
+    }
+    textarea{min-height:140px; resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr; gap:12px}
+    .list{display:flex;flex-direction:column; gap:10px; margin-top:10px}
+    .item{padding:12px;border:1px solid var(--border);border-radius:12px;background:rgba(2,6,23,.35)}
+    .item .t{font-weight:650}
+    .item .m{color:var(--muted);font-size:13px;margin-top:4px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .warn{color:var(--warn)}
+    .ok{color:var(--ok)}
+    .bad{color:var(--bad)}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <b>O VALOR CAPITAL</b>
+        <span class="pill">Admin • Gerador de conteúdo (estático)</span>
+      </div>
+      <div class="actions">
+        <a class="btn" href="/" target="_blank" rel="noreferrer">Abrir portal</a>
+        <a class="btn" href="/ao-vivo/" target="_blank" rel="noreferrer">Ao Vivo</a>
+        <button class="btn primary" id="btnExport">Exportar JSON</button>
+        <button class="btn" id="btnLogout" style="background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4)">Sair</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="card">
+      <h1>Novo artigo</h1>
+      <div class="muted">Este admin gera arquivos para você fazer commit no GitHub (sem backend).</div>
+
+      <label>Título</label>
+      <input id="title" placeholder="Ex: IPCA surpreende e muda o jogo do juro real" />
+
+      <div class="row">
+        <div>
+          <label>Slug (URL)</label>
+          <input id="slug" placeholder="ex: ipca-surpreende-juro-real" />
+        </div>
+        <div>
+          <label>Data</label>
+          <input id="date" type="date" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Categoria</label>
+          <select id="category"></select>
+        </div>
+        <div>
+          <label>Subcategoria</label>
+          <select id="subcategory"></select>
+        </div>
+      </div>
+
+      <label>Resumo (card)</label>
+      <textarea id="excerpt" placeholder="2-3 linhas. Direto ao ponto."></textarea>
+
+      <label>Conteúdo (HTML simples)</label>
+      <textarea id="content" placeholder="<p>...</p>"></textarea>
+
+      <div class="actions">
+        <button class="btn primary" id="btnAdd">Salvar no banco (local)</button>
+        <button class="btn" id="btnDownloadHtml">Baixar HTML do artigo</button>
+        <button class="btn" id="btnClear">Limpar</button>
+      </div>
+
+      <div class="muted" style="margin-top:10px">
+        Saída do artigo: <span class="ok">/artigos/&lt;slug&gt;/index.html</span><br/>
+        Saída da lista: <span class="ok">/data/articles.json</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>Banco local</h1>
+      <div class="muted">Fica no seu navegador (localStorage). Use “Exportar JSON” para publicar.</div>
+      <div id="status" class="muted" style="margin-top:10px"></div>
+      <div class="list" id="list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Verificação de sessão
+const SESSION_KEY = 'OVC_ADMIN_SESSION';
+(function() {
+  try {
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+    if (!session || session.expires < Date.now()) {
+      window.location.href = '/admin/';
+      return;
+    }
+  } catch (e) {
+    window.location.href = '/admin/';
+    return;
+  }
+})();
+
+// Botão de logout
+document.addEventListener('DOMContentLoaded', function() {
+  const btnLogout = document.getElementById('btnLogout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', function() {
+      localStorage.removeItem(SESSION_KEY);
+      window.location.href = '/admin/';
+    });
+  }
+});
+</script>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>
